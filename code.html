@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Farewell Celebration - Tech Club</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@200;300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-dim": "#d7383b",
+                        "primary-dim": "#00d4ec",
+                        "outline": "#6f7586",
+                        "tertiary-dim": "#874cff",
+                        "on-secondary-container": "#f3cfff",
+                        "surface-container-low": "#0c1322",
+                        "on-surface-variant": "#a5abbd",
+                        "inverse-primary": "#006976",
+                        "on-secondary-fixed": "#56007c",
+                        "error": "#ff716c",
+                        "on-error-container": "#ffa8a3",
+                        "secondary-dim": "#d277ff",
+                        "on-tertiary": "#290067",
+                        "secondary": "#d277ff",
+                        "inverse-surface": "#f9f9ff",
+                        "on-tertiary-container": "#f8f1ff",
+                        "on-primary": "#005762",
+                        "on-tertiary-fixed-variant": "#4700a7",
+                        "secondary-fixed-dim": "#e7afff",
+                        "primary-fixed": "#00e3fd",
+                        "error-container": "#9f0519",
+                        "on-primary-fixed-variant": "#005762",
+                        "surface-container-lowest": "#000000",
+                        "secondary-container": "#7d01b1",
+                        "surface-container-high": "#172031",
+                        "on-secondary-fixed-variant": "#800ab4",
+                        "inverse-on-surface": "#4e5565",
+                        "primary": "#81ecff",
+                        "outline-variant": "#414857",
+                        "tertiary-fixed": "#bda1ff",
+                        "primary-container": "#00e3fd",
+                        "secondary-fixed": "#eec2ff",
+                        "surface": "#070e1b",
+                        "on-primary-container": "#004d57",
+                        "on-background": "#e2e8fb",
+                        "tertiary": "#ac89ff",
+                        "surface-container": "#11192a",
+                        "on-secondary": "#380052",
+                        "primary-fixed-dim": "#00d4ec",
+                        "on-primary-fixed": "#003840",
+                        "on-tertiary-fixed": "#1f0052",
+                        "background": "#070e1b",
+                        "surface-tint": "#81ecff",
+                        "surface-variant": "#1c2639",
+                        "surface-dim": "#070e1b",
+                        "tertiary-container": "#7000ff",
+                        "surface-container-highest": "#1c2639",
+                        "on-error": "#490006",
+                        "on-surface": "#e2e8fb",
+                        "surface-bright": "#222c41",
+                        "tertiary-fixed-dim": "#b190ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Space Grotesk"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #070e1b;
+            color: #e2e8fb;
+            overflow-x: hidden;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .particle-scrim {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle at 2px 2px, rgba(210, 119, 255, 0.1) 1px, transparent 0);
+            background-size: 40px 40px;
+            z-index: 0;
+        }
+
+        .glass-panel {
+            background: rgba(28, 38, 57, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(129, 236, 255, 0.15);
+        }
+
+        .reveal-overlay {
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        #gate-left {
+            transform: translateX(0);
+        }
+
+        #gate-right {
+            transform: translateX(0);
+        }
+
+        .open #gate-left {
+            transform: translateX(-100%);
+        }
+
+        .open #gate-right {
+            transform: translateX(100%);
+        }
+
+        .open #landing-content {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .glow-line {
+            width: 2px;
+            height: 40px;
+            background: #d277ff;
+            box-shadow: 0 0 15px #d277ff;
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0px rgba(129, 236, 255, 0); }
+            50% { box-shadow: 0 0 20px rgba(129, 236, 255, 0.4); }
+            100% { box-shadow: 0 0 0px rgba(129, 236, 255, 0); }
+        }
+
+        @keyframes gradient-x {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .animate-gradient-x {
+            background-size: 200% 200%;
+            animation: gradient-x 15s ease infinite;
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="font-body selection:bg-primary-container selection:text-on-primary-container">
+    <!-- Landing State (Gate) -->
+    <div class="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden" id="landing-gate">
+        <div class="reveal-overlay absolute inset-y-0 left-0 w-1/2 bg-surface border-r border-primary/10 flex items-center justify-end pr-4 sm:pr-12"
+            id="gate-left">
+            <div class="transition-opacity duration-700 text-right" id="landing-content">
+                <span
+                    class="font-label text-[10px] tracking-[0.4em] text-secondary uppercase mb-2 block">Initiating</span>
+                <h1 class="font-headline text-5xl sm:text-7xl font-bold tracking-tighter text-on-surface">VJ<br />ARC
+                </h1>
+            </div>
+        </div>
+        <div class="reveal-overlay absolute inset-y-0 right-0 w-1/2 bg-surface border-l border-primary/10 flex items-center justify-start pl-4 sm:pl-12"
+            id="gate-right">
+            <div class="transition-opacity duration-700" id="landing-content-2">
+                <span class="font-label text-[10px] tracking-[0.4em] text-primary uppercase mb-2 block">Sequence</span>
+                <h1 class="font-headline text-5xl sm:text-7xl font-bold tracking-tighter text-on-surface">
+                    FAREWELL<br />'26</h1>
+            </div>
+        </div>
+        <!-- Open Button -->
+        <button
+            class="z-[110] group relative flex items-center justify-center w-24 h-24 sm:w-32 sm:h-32 rounded-full glass-panel border-primary pulse-glow transition-all duration-500 hover:scale-110 active:scale-95"
+            onclick="document.getElementById('landing-gate').classList.add('open'); this.style.opacity='0'; this.style.pointerEvents='none';">
+            <div class="absolute inset-0 rounded-full border border-primary/30 animate-ping opacity-20"></div>
+            <span
+                class="font-label text-center font-bold tracking-widest text-primary leading-tight group-hover:text-secondary-dim transition-colors text-2xl sm:text-3xl font-extrabold">OPEN</span>
+        </button>
+    </div>
+    <!-- Main Content Shell -->
+    <div class="relative min-h-screen bg-surface selection:bg-primary/30">
+        <div class="particle-scrim"></div>
+        <!-- Top Navigation -->
+        <nav
+            class="fixed top-0 w-full z-50 bg-[#070e1b]/80 backdrop-blur-xl flex justify-center items-center px-6 py-4 max-w-full border-b border-primary/10">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-cyan-400 animate-pulse"
+                    style="font-variation-settings: 'FILL' 1;">memory</span>
+                <span class="font-['Space_Grotesk'] tracking-[0.1em] uppercase text-xs sm:text-sm font-bold text-cyan-400">VJ ARC FAREWELL '26</span>
+            </div>
+        </nav>
+        <main class="relative z-10 pt-32 pb-40 px-6 sm:px-12 max-w-7xl mx-auto">
+            <!-- Hero Header -->
+            <header class="mb-24 relative">
+                <div class="glow-line absolute -left-6 top-0"></div>
+                <p class="font-label text-xs tracking-[0.3em] text-secondary-dim uppercase mb-4">The Luminescent Archive
+                </p>
+                <h1
+                    class="font-headline text-5xl md:text-9xl font-extrabold tracking-tighter leading-[0.9] text-on-surface mb-8">
+                    FAREWELL <br />
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-tertiary-dim animate-gradient-x">CELEBRATION</span>
+                </h1>
+                <div class="flex flex-col md:flex-row gap-12 items-start">
+                    <p class="font-body text-lg text-on-surface-variant max-w-xl leading-relaxed">
+                        A journey filled with innovation, teamwork, and unforgettable memories. We gather to honor the
+                        legacy of those moving forward to new horizons.
+                    </p>
+                    <div class="md:ml-auto">
+                        <div class="flex flex-col gap-1">
+                            <span class="font-label text-[10px] tracking-[0.2em] text-outline">CURRENT_CHAPTER</span>
+                            <span class="font-headline text-3xl font-bold text-on-surface">VJ ARC '26</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Event Details Bento Grid -->
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-32">
+                <!-- Main Date Card -->
+                <div class="md:col-span-2 glass-panel p-8 sm:p-12 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4">
+                        <span class="material-symbols-outlined text-primary/20 text-6xl">calendar_today</span>
+                    </div>
+                    <span class="font-label text-[10px] tracking-[0.3em] text-primary uppercase mb-12 block">Event
+                        Timeline</span>
+                    <div class="flex flex-col gap-2">
+                        <span class="font-headline text-7xl font-bold tracking-tighter text-on-surface">APR 19</span>
+                        <span class="font-body text-xl text-on-surface-variant">Saturday • 18:00 HRS</span>
+                    </div>
+                </div>
+                <!-- Venue Card -->
+                <div
+                    class="glass-panel p-0 flex flex-col justify-between border-secondary/20 relative overflow-hidden group min-h-[300px]">
+                    <div class="absolute inset-0 z-0">
+                         <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.80451702268!2d78.4405042!3d17.4211665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9713ea5dce4d%3A0x55d66161e9f00e11!2sHabitat%2BCafe!5e0!3m2!1sen!2sin!4v1713444304804!5m2!1sen!2sin" 
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+                        </iframe>
+                    </div>
+                    <div class="relative z-10 p-8 pointer-events-none">
+                        <span
+                            class="font-label text-[10px] tracking-[0.3em] text-secondary uppercase mb-8 block bg-surface/60 backdrop-blur-md px-2 py-1 w-fit rounded">Location</span>
+                        <h3 class="font-headline text-2xl font-bold text-on-surface mb-2 drop-shadow-lg">Habitat Cafe</h3>
+                        <p class="font-body text-xs text-on-surface-variant drop-shadow-md">Terrace, Banjara Hills <br /> Hyderabad</p>
+                    </div>
+                    <div class="relative z-10 mt-12 p-8 pt-0">
+                        <a href="https://maps.app.goo.gl/cro6MyL6mdU8ypLLA" target="_blank"
+                            class="text-primary font-label text-[10px] tracking-widest flex items-center gap-2 hover:gap-4 transition-all w-fit bg-surface/60 backdrop-blur-md px-3 py-2 rounded pointer-events-auto">
+                            OPEN IN MAPS <span class="material-symbols-outlined text-sm">open_in_new</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <!-- Final Message Section -->
+            <section class="text-center py-24 relative">
+                <div
+                    class="absolute inset-0 -z-10 bg-gradient-to-t from-primary/5 to-transparent rounded-full blur-[100px] w-2/3 mx-auto h-full">
+                </div>
+                <h2 class="font-headline text-3xl md:text-5xl font-bold tracking-tight mb-6">
+                    This isn’t a goodbye—it’s a celebration of everything you’ve achieved.
+                </h2>
+                <p class="font-body text-on-surface-variant max-w-2xl mx-auto">
+                    Join us as we toast to the future and preserve the memories of our shared past.
+                </p>
+            </section>
+        </main>
+        <!-- Footer -->
+        <footer class="w-full py-12 bg-[#070e1b] flex flex-col items-center gap-4 text-center">
+            <div class="flex gap-8 mb-4">
+                <a class="font-['Manrope'] text-[10px] font-light tracking-[0.2em] text-slate-600 hover:text-cyan-400 underline decoration-cyan-400/30 transition-all duration-700"
+                    href="#">Privacy</a>
+                <a class="font-['Manrope'] text-[10px] font-light tracking-[0.2em] text-slate-600 hover:text-cyan-400 underline decoration-cyan-400/30 transition-all duration-700"
+                    href="#">Archive</a>
+            </div>
+            <p class="font-['Manrope'] text-[10px] font-light tracking-[0.2em] text-cyan-900">SYNTHETIC ELEGANCE © TECH
+                CLUB</p>
+        </footer>
+        <!-- Bottom Bar (Mobile) -->
+        <div
+            class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center h-16 pb-safe px-4 bg-[#070e1b]/40 backdrop-blur-2xl rounded-t-2xl border-t border-white/5 shadow-[0_-8px_32px_rgba(0,0,0,0.5)]">
+            <button
+                class="text-cyan-400 relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-cyan-400 after:rounded-full after:shadow-[0_0_8px_#00e5ff] scale-110">
+                <span class="material-symbols-outlined">auto_awesome</span>
+            </button>
+            <button class="text-slate-500 opacity-60 hover:text-purple-400 transition-all duration-500">
+                <span class="material-symbols-outlined">calendar_today</span>
+            </button>
+            <button class="text-slate-500 opacity-60 hover:text-purple-400 transition-all duration-500">
+                <span class="material-symbols-outlined">favorite</span>
+            </button>
+            <button class="text-slate-500 opacity-60 hover:text-purple-400 transition-all duration-500">
+                <span class="material-symbols-outlined">send</span>
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>
